@@ -1,0 +1,26 @@
+<html>
+	<head>
+		<script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+		<link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
+		<link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
+		<link rel="import" href="../paper-youtube-player.html">
+	</head>
+
+	<body>
+		<demo-snippet>
+			<template is="dom-bind">
+				<paper-youtube-player
+					id="video"
+					video-id="L2fqRrrIetM"
+					thumbnail="https://pmctvline2.files.wordpress.com/2017/01/meryl-streep-donald-trump-globes.jpg?w=620&h=420&crop=1"
+					height="450">
+				</paper-youtube-player>
+
+				<script>
+					// set width to window width
+					document.getElementById('video').width = window.innerWidth - 56;
+				</script>
+			</template>
+		</demo-snippet>
+	</body>
+</html>

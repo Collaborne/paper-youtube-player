@@ -1,0 +1,45 @@
+<!doctype html>
+<html>
+	<head>
+		<title>paper-youtube-player</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+		<script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+		<script src="../../web-component-tester/browser.js"></script>
+		<script src="../../test-fixture/test-fixture-mocha.js"></script>
+		<script src="../../iron-test-helpers/mock-interactions.js"></script>
+
+		<link rel="import" href="../paper-youtube-player.html">
+		<link rel="import" href="../../test-fixture/test-fixture.html">
+	</head>
+	<body>
+
+		<test-fixture id="TrivialElement">
+			<template>
+				<paper-youtube-player></paper-youtube-player>
+			</template>
+		</test-fixture>
+
+		<script>
+			suite('<paper-youtube-player>', function() {
+				suite('no results behavior', function() {
+					var element;
+
+					setup(function() {
+						element = fixture('TrivialElement');
+					});
+
+					test('Check default state of the player', function() {
+						expect(element.width).to.be.eql(450);
+						expect(element.height).to.be.eql(360);
+						expect(element.thumbnail).to.be.eql(undefined);
+						expect(element.videoId).to.be.eql(undefined);
+						expect(element._showVideo).to.be.eql(true);
+					});
+				});
+			});
+		</script>
+
+	</body>
+</html>

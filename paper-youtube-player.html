@@ -1,0 +1,186 @@
+<!doctype html>
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../google-apis/google-youtube-api.html">
+<link rel="import" href="../iron-icon/iron-icon.html">
+<link rel="import" href="../iron-icons/av-icons.html">
+
+<!--
+Simple video player with thumbnail
+
+### Example
+
+```html
+<paper-youtube-player
+	id="video"
+	video-id="L2fqRrrIetM"
+	thumbnail="https://pmctvline2.files.wordpress.com/2017/01/meryl-streep-donald-trump-globes.jpg?w=620&h=420&crop=1"
+	height="450"
+	width="650">
+</paper-youtube-player>
+```
+
+@demo demo/index.html
+-->
+<dom-module id="paper-youtube-player">
+	<template>
+		<style>
+			.thumbnail {
+				background-size: cover;
+				background-position: center;
+					cursor: pointer;
+			}
+			.overlay:active,.overlay:hover {
+				background-color: rgba(0,0,0,0.7);
+			}
+			.overlay {
+				background-color: rgba(0,0,0,0.5);
+				-webkit-transition: background-color 0.2s;
+				transition: background-color 0.2s;
+				@apply(--layout-horizontal);
+				@apply(--layout-center-center);
+				height: 100%;
+			}
+			.playIcon {
+				color: white;
+				--iron-icon-width: 96px;
+				--iron-icon-height: 96px;
+			}
+			#player {
+				background-color: black;
+			}
+		</style>
+			<div id="thumbnail" class="thumbnail container" hidden$="[[_showVideo]]" on-tap="_handleThumbnailTap">
+				<div class="overlay">
+					<iron-icon class="playIcon" icon="av:play-circle-outline"></iron-icon>
+				</div>
+			</div>
+
+			<template is="dom-if" if="{{_showVideo}}">
+				<google-youtube-api on-api-load="_createPlayer"></google-youtube-api>
+			</template>
+
+			<div id="player" hidden$="[[!_showVideo]]"></div>
+	</template>
+</dom-module>
+<script>
+	(function() {
+		PaperSimpleVideoPlayer = Polymer({
+			is: 'paper-youtube-player',
+			properties: {
+				// public variables
+				/**
+				 * Thumbnail showed instead of the video
+				 */
+				thumbnail: {
+					type: String
+				},
+				/**
+				 * Desired width of the video and thumbnail
+				 */
+				width: {
+					type: Number,
+					value: 450
+				},
+				/**
+				 * Desired height of the video and thumbnail
+				 */
+				height: {
+					type: Number,
+					value: 360
+				},
+				/**
+				 * The video ID that is suppose to be played
+				 */
+				videoId: {
+					type: String,
+					observer: 'reset'
+				},
+
+				// private variables
+				_player: {
+					type: Object,
+					value: function() {
+						return new Object;
+					}
+				},
+				_showVideo: {
+					type: Boolean,
+					value: true
+				}
+			},
+
+			observers: [
+				'_hideVideo(thumbnail, width, height)'
+			],
+
+			ready: function() {
+				// if there is no thumbnail play the video
+				if (!this.thumbnail) {
+					this._createPlayer();
+				}
+			},
+			/**
+			 * Creates the player and shows it. Plus hides thumbnail.
+			 */
+			_handleThumbnailTap: function() {
+				this._createPlayer();
+				this._showVideo = true;
+			},
+			/**
+			 * Inicializes the youtube player
+			 *
+			 * @param height Number that represents desired height of the video
+			 * @param width Number that represents desired width of the video
+			 */
+			_createPlayer: function() {
+				// set the size of the container that holds the video
+				this.$.player.style.height = `${this.height}px`;
+				this.$.player.style.width = `${this.width}px`;
+
+				if (typeof YT !== 'undefined' && !(this._player.a)) {
+					this._player = new YT.Player(this.$.player, {
+						videoId: this.videoId,
+						playerVars: {rel: 0},
+						events: {
+							onReady: function(e) {
+								if (Boolean(this._player.playVideo)) {
+									this._player.playVideo();
+								}
+							}.bind(this)
+						}
+					});
+				}
+			},
+			/**
+			 * Hides video and shows thumbnail
+			 *
+			 * Called when thumbnail, width, height are set
+			 *
+			 * @param thumbnail String that represents url of the desired thumbnail
+			 * @param height Number that represents desired height of the video and thumbnail
+			 * @param width Number that represents desired width of the video and thumbnail
+			 */
+			_hideVideo: function(thumbnail, width, height) {
+				// sets video thumbnail
+				this.$.thumbnail.style.backgroundImage = `url("${thumbnail}")`;
+				this.$.thumbnail.style.height = `${height}px`;
+				this.$.thumbnail.style.width = `${width}px`;
+				this._showVideo = false;
+			},
+			/**
+			 * Function that destroys the player and shows the thumbnail
+			 */
+			reset: function() {
+				// if there is thumbnail, show it
+				if (this.thumbnail) {
+					this._showVideo = false;
+				}
+				// player.a checks if the iframe is defined, in other words
+				// checks if the player was not destroyed before
+				if (Boolean(this._player) && Boolean(this._player.a)) {
+					this._player.destroy();
+				}
+			},
+		});
+	})();
+</script>
