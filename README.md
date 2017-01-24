@@ -1,4 +1,4 @@
-# paper-youtube-player
+# paper-youtube-player [![Build Status](https://travis-ci.org/Collaborne/paper-youtube-player.svg?branch=master)](https://travis-ci.org/Collaborne/paper-youtube-player)
 Simple video youtube player with thumbnail 
 
 ## Usage
