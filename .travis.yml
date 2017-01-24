@@ -3,15 +3,15 @@ sudo: false
 node_js:
 - stable
 addons:
-  firefox: '47.0.1'
+  firefox: 47.0.1
 cache:
   directories:
   - node_modules
 before_script:
 - npm install web-component-tester bower@1.7.9 wct-local@2.0.8
-- $(npm bin)/bower install
+- "$(npm bin)/bower install"
 script:
 - xvfb-run $(npm bin)/wct
 after_success: '[ ${TRAVIS_PULL_REQUEST} = "false" ] && [ ${TRAVIS_BRANCH} = "master" ] && $(npm bin)/bower install -s https://${GH_TOKEN}@github.com/Collaborne/collaborne-build-tools.git && bower_components/collaborne-build-tools/gpages_build.sh Collaborne info@collaborne.com'
 env:
-  secure: dMhvNmulkWVp4aZfJrz2F63Jp5rTUJBv/iihYDCJreeHZWg2jFIpIwuJtVCEUroyiARjaPCWM+LdM4FJGAQZAe7vbwbLWlIn8/pitljcHlyaZaoKEnEkIBnd7MsS4iKcZ/B0q3EA6yfoCUsuC90SM3zA1/+Iq+8tfID5NsEAgZXhOdKgCjF1AT+tdTnBgxUVkNkfcr1I6APi/nA2M1B4BLzbYW8YAZEoHaicq5uASOnudqEHs9YLWv6r8ibP+9Lu8QF2k3KgCw/sd3NuTH+YKSOy3Nl3IDm0sehPiF2eADqd0rf2izfy+ySP2DDc2/YZwHTQiOBxwXlTl+AaEfasL52Gi0GmKb/KWMoRZrbmA2eXs4nKB+YtFu8zTl7dQsf3itABiw8wcUvIZhEZuUJLUnzS+IBG4M+eKC9Sf2/iPZkWQCqHtuEW4yxTu+ht8GMCdGug9ROKwe/cbeO+J/GTye0wGYSBSe3STy6CX8Yo9Ri7v8tpR2tW3H2Fa6FNdw4kt7WpgHu4F75hPTmtqdaZXGlqO0dfdLJJgUBC8PysEQvNDQ3OtYbrQFcsJYiIyHiUNT8tmmtrrYuXQZJfXG9+3SkLC8SxUAWPjKmbtexPu4BtpZbOrEVPszjc7YQoy+KIwPCJbdulousTHFA4dkEPM5ipxuCHCl/41dQr2gS21Rs=
+  secure: J0Tp82RrgoGafr3DByZeJS1nUM0hT42Vmnk9KI6wgWTWIsA8732CeAAtgmN2P3vH5BQDFITQPYxhaFanjNJIfb1ZFeASn64zW2lsOFyKkZr7BS1ZUr948N0dD6QyksQxOltewh4Cqc90NOhuyrJJHyaa58kIxnR506G2NQfgOfbOVI5/OkTFlgKN7okGeiEvPZ+j/iJF1OwKj0yTWmwA+VXPSNa0hsBpwlmtK+vknwG//Oc6rXQGKXZuFhHqiMdoJ/OdpB7k08NvezDGQ8J2KXtiF9FVwOhMDKnscPTqZDQBCeDzKBmcHrm8M09r5O41jr/USc3Ciii//7jJNNWJJu2qoPGyBPrSKUjQayG8sI8ZrQWc4UMn685ejEOs7rNBNx+EqpB+m9XDot/n5crMTV3dYwaKdd5SIPUFLAaYEK94dwjgr0DLefkE+7/nP04ssbsFBEyXsDX/J/gDG3GGrmjvEnI3GdTZ9XLzP4y0o3G4yM6oESSB/gp0tBZk6dqYxNoMkYKA1ycb/zS+1Qecv3xykuHKz9gdBZlsqC4szdKuZtEUKz6V9zjn4McXXz3jYqAWB8x79Tr+qdHTEDDKaoMShIVMpF38OaWE5pdV61ONj6CJiHGvwuOHnRz+fV6kg7vTa2TSEOX6PXJPfptZj7v+VBV91SyZtx5nh6xD7P4=
