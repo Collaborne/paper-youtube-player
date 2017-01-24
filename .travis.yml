@@ -1,15 +1,22 @@
-language: node_js
+dist: trusty
 sudo: false
+group: beta
+
+language: node_js
 node_js:
-- stable
+- node
 addons:
-  firefox: 47.0.1
+  firefox: '49.0.2'
 cache:
   directories:
   - node_modules
+  - "$HOME/.cache/bower"
+before_install:
+- "if [ -d node_modules ] && [ x$(cat node_modules/.last-node-version 2>/dev/null) != x$(node -e 'console.log(process.version)') ]; then npm rebuild && node -e 'console.log(process.version)' > node_modules/.last-node-version; fi"
 before_script:
-- npm install web-component-tester bower@1.7.9 wct-local@2.0.8
-- "$(npm bin)/bower install"
+- npm install web-component-tester bower@1.7.9 polylint
+- $(npm bin)/bower install
+- $(npm bin)/polylint --no-recursion
 script:
 - xvfb-run $(npm bin)/wct
 after_success: '[ ${TRAVIS_PULL_REQUEST} = "false" ] && [ ${TRAVIS_BRANCH} = "master" ] && $(npm bin)/bower install -s https://${GH_TOKEN}@github.com/Collaborne/collaborne-build-tools.git && bower_components/collaborne-build-tools/gpages_build.sh Collaborne info@collaborne.com'
