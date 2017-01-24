@@ -1,10 +1,20 @@
 # paper-youtube-player
 Simple video youtube player with thumbnail 
 
+## Usage
+
+Supported options:
+
+| Option            | Description                                             |
+| ----------------- | ------------------------------------------------------- |
+| **video-id**      | YouTube video ID                                        |
+| **thumbnail**     | URL of a picture that sould be displayed as thumbnail   |
+| **height**        | Height of the video / thumbnail                         |
+| **width**         | Width of the video / thumbnail                          |
+
 ## Example
 ```html
 <paper-youtube-player
-	id="video"
 	video-id="L2fqRrrIetM"
 	thumbnail="https://pmctvline2.files.wordpress.com/2017/01/meryl-streep-donald-trump-globes.jpg?w=620&h=420&crop=1"
 	height="450"
