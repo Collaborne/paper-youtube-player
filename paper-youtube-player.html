@@ -112,11 +112,23 @@ Simple video player with thumbnail
 				'_hideVideo(thumbnail, width, height)'
 			],
 
+			/**
+			 * Once all parameters are loaded checks if there is thumbnail and video id.
+			 * In case thumbnail is not present and id is available creates thumbnail.
+			 */
 			ready: function() {
-				// if there is no thumbnail play the video
-				if (!this.thumbnail) {
-					this._createPlayer();
+				if (!this.thumbnail && this.videoId) {
+					this.thumbnail = this._createThumbnail(this.videoId);
 				}
+			},
+			/**
+			 * Create thumbnail from video id
+			 *
+			 * @param String that represents id of a youtube video
+			 * @return String that represents the url of video thumbnail
+			 */
+			_createThumbnail: function(videoId) {
+				return `http://img.youtube.com/vi/${videoId}/0.jpg`;
 			},
 			/**
 			 * Creates the player and shows it. Plus hides thumbnail.
