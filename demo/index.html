@@ -9,16 +9,27 @@
 	<body>
 		<demo-snippet>
 			<template is="dom-bind">
+				<!--This video has set dimensions and thumbnail-->
 				<paper-youtube-player
-					id="video"
+					id="videoThumbnail"
+					thumbnail="http://cdn.thedailybeast.com/content/dailybeast/articles/2014/01/16/why-meryl-streep-is-so-special/jcr:content/image.img.2000.jpg/1393612150450.cached.jpg"
 					video-id="L2fqRrrIetM"
-					thumbnail="https://pmctvline2.files.wordpress.com/2017/01/meryl-streep-donald-trump-globes.jpg?w=620&h=420&crop=1"
-					height="450">
+					height="350">
+				</paper-youtube-player>
+
+				<!--break bwtween videos-->
+				<div style="height: 20px"></div>
+
+				<!--This video has default height and automatically generated thumbnail-->
+				<paper-youtube-player
+					id="videoWithOutThumbnailAndHeight"
+					video-id="L2fqRrrIetM">
 				</paper-youtube-player>
 
 				<script>
 					// set width to window width
-					document.getElementById('video').width = window.innerWidth - 56;
+					document.getElementById('videoThumbnail').width = window.innerWidth - 56;
+					document.getElementById('videoWithOutThumbnailAndHeight').width = window.innerWidth - 56;
 				</script>
 			</template>
 		</demo-snippet>
