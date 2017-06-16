@@ -1,5 +1,3 @@
-_[Demo and API Docs](https://collaborne.github.io/iron-justified-gallery/components/iron-justified-gallery/)_
-
 # paper-youtube-player [![Build Status](https://travis-ci.org/Collaborne/paper-youtube-player.svg?branch=master)](https://travis-ci.org/Collaborne/paper-youtube-player)
 Simple video youtube player with thumbnail 
 
